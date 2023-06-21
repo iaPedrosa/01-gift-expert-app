@@ -1,17 +1,21 @@
-// API GIF
-// l6QY9LzoniKoGtmEJvU5EmCPZLpPNfPI
+
 
 import { useState } from "react";
 import { AddCategory } from "./components/AddCategory";
+import { GifGrid } from "./components/GifGrid";
 
 export const GifExpertApp = () => {
   const [categories, setCategories] = useState([
-    "Harry Potter",
-    "Breaking Bad",
+    "Harry Potter"
   ]);
 
   const onAddCategory = (newCategory) => {
-    setCategories([newCategory,...categories]);
+    if (categories.includes(newCategory)) {
+      alert("Ya existe esa categoria");
+      return;
+    }
+
+    setCategories([newCategory, ...categories]);
   };
 
   return (
@@ -21,19 +25,17 @@ export const GifExpertApp = () => {
 
       {/* Input */}
       {/* <AddCategory setCategories={setCategories}/> */}
-      <AddCategory 
-        onNewCategory={ onAddCategory}
-      
-      />
+      <AddCategory onNewCategory={onAddCategory} />
 
       {/* Listado de Gif */}
 
       {/* <button onClick={onAddCategory}>Agregar</button> */}
-      <ol>
-        {categories.map((category) => {
-          return <li key={category}>{category}</li>;
-        })}
-      </ol>
+      
+        {categories.map((category) => (
+          <GifGrid category={category} key={category}/>
+        ))
+        }
+      
       {/* Gif Item */}
     </>
   );
